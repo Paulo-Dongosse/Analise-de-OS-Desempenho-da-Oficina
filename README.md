@@ -10,7 +10,7 @@ O objetivo foi criar um **dashboard interativo** que auxilia na gestão de clien
 ## 📊 Dashboard Final  
 
 📸 **Captura de tela 2025-09-19 103112.png**  
-![Dashboard](Captura%20de%20tela%202025-09-19%20103112.png)  
+![Dashboard](dash.png)  
 
 O dashboard traz os principais **KPIs da oficina**:
 - 💰 Receita total  

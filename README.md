@@ -12,49 +12,73 @@ O objetivo foi criar um **dashboard interativo** que auxilia na gestão de clien
 📸 **Captura de tela 2025-09-19 103112.png**  
 ![Dashboard](dash.png)  
 
-O dashboard traz os principais **KPIs da oficina**:
+Aqui está o resultado final do dashboard no Power BI.  
+Ele traz os principais **KPIs da oficina**:
 - 💰 Receita total  
 - 👥 Total de clientes atendidos  
 - 🔩 Quantidade de peças vendidas  
 - 📑 Total de ordens de serviço abertas  
 
-Além de gráficos sobre: veículos mais atendidos, formas de pagamento, evolução mensal das OS, serviços mais realizados e peças mais vendidas.  
+Além disso, gráficos dinâmicos mostram:  
+- Veículos mais atendidos  
+- Formas de pagamento utilizadas  
+- Evolução mensal das OS  
+- Serviços mais realizados  
+- Peças mais vendidas  
 
 ---
 
 ## 🛠️ Etapas do Projeto  
 
-### 🔹 1. Explorando os dados no Power Query  
+### 🔹 1. Tabelas do MySQL 
+📸 **Captura de tela 2025-09-19 105526.png**  
+![import](Import_no_mysql.png)   
+No Navegador do Power BI, após conectar ao MySQL, é possível visualizar todas as tabelas do banco `sistema_os`.  
+Esse print mostra a listagem das tabelas e a seleção de quais seriam importadas para análise.  
+
+---
+
+### 🔹 2. Visualizando os Dados Brutos no Power Query  
 📸 **dados_sem_coluna_removidas.png**  
 ![Dados brutos](dados_sem_coluna_removidas.png)  
-Os dados importados do MySQL foram analisados diretamente no **Power Query**, garantindo que as tabelas estavam corretas antes das transformações.  
+
+Nesta etapa explorei as tabelas importadas do MySQL, como a de **veículos**.  
+É a visão inicial dos dados, **sem tratamento nem limpeza**, apenas para confirmar se tudo estava sendo carregado corretamente no Power BI.  
 
 ---
 
-### 🔹 2. Mesclagem das tabelas de clientes  
+### 🔹 3. Mesclagem de Tabelas de Clientes  
 📸 **mesclar_tabelas.png**  
 ![Mesclagem de clientes](mesclar_tabelas.png)  
-Os dados de clientes estavam divididos em:  
-- `clientepf` (Pessoa Física)  
-- `clientepj` (Pessoa Jurídica)  
 
-Mesclei essas tabelas com `cliente` para **unificar as informações** em uma dimensão única de clientes.  
+Os dados de clientes estavam separados em **Pessoa Física (`clientepf`)** e **Pessoa Jurídica (`clientepj`)**.  
+Com o **Power Query**, fiz a **mesclagem dessas tabelas** com a tabela `cliente`, criando uma visão única de clientes.  
+Assim foi possível trabalhar tanto com nomes de pessoas físicas quanto com razões sociais das empresas em um só campo.  
 
 ---
 
-### 🔹 3. Removendo colunas desnecessárias  
+### 🔹 4. Removendo Colunas Desnecessárias  
 📸 **removendo_ascolunas.png**  
 ![Removendo colunas](removendo_ascolunas.png)  
-Após a mesclagem, eliminei colunas redundantes, deixando apenas os atributos necessários (nome/razão social, telefone, e-mail, etc.).  
-Isso tornou o modelo **mais limpo e otimizado**.  
+
+Após mesclar os dados, removi colunas que não eram úteis para as análises, como IDs internos e chaves que não precisavam aparecer nos relatórios.  
+Isso deixou o modelo **mais limpo, leve e focado nos indicadores realmente importantes**.  
 
 ---
+### Análise Rapida
 
-### 🔹 4. Construção do modelo no Power BI  
+ ![Analise](analise_rapidas.png)  
+No Editor de Consultas do Power BI, já com os dados importados do MySQL, é possível visualizar colunas como **forma de pagamento, valor e data do pagamento**.  
+Esse print mostra a etapa de tratamento e validação dos dados antes da criação dos relatórios.
+
+---
+### 🔹 5. Arquivo Principal do Power BI  
 📸 **db_SQL.pbix**  
-O arquivo `.pbix` contém todo o modelo de dados, relações e medidas DAX criadas.  
 
-Algumas medidas utilizadas:
+O arquivo `.pbix` contém todo o modelo de dados, as transformações e as medidas DAX criadas.  
+
+Algumas das medidas mais importantes foram:  
+
 ```DAX
 TotalOS = COUNTROWS(ordemServico)
 
